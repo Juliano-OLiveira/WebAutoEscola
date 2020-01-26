@@ -1,0 +1,152 @@
+<!DOCTYPE html >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/templates/template.xhtml">
+
+    
+
+<!--     <ui:define name="head">              
+         <f:metadata>
+                        <f:viewAction action = "#{alunosBean.todosOsAlunos()}" />
+                    </f:metadata>
+    </ui:define> 
+                    -->
+        
+   
+    
+    <ui:define name="body">
+
+        
+        <h:form id="frm">
+
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton value="Novo" icon=" fa fa-plus" styleClass="btn-primary"
+
+                                     process="@this"
+                                     oncomplete="PF('edicaoClienteDialog').show()">
+
+                        <p:resetInput target="aluno-dialog" />     
+                    </p:commandButton>
+
+
+
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical"></span>
+                    </span>
+                    <p:commandButton title="Editar" icon="ui-icon-pencil" styleClass="btn-warning" />
+                    <p:spacer width="5px" />
+                    <p:commandButton title="Excluir" icon="ui-icon-trash"  styleClass="btn-danger" />
+                </f:facet>
+
+            </p:toolbar>
+            <br/>
+
+
+            <p:dialog header="Alunos"
+                      widgetVar="edicaoClienteDialog"
+                      id="aluno-dialog"
+                      resizable="false" modal="true"
+                      closeOnEscape="true">
+
+                <p:panelGrid columns="4" id="painel-dialog">
+
+
+                    <h:outputLabel value="Nome :" for="nome" />
+                    <h:inputText id="nome"  required="true"/>
+
+                    <h:outputLabel value="Endereco :" for="endereco"/>
+                    <h:inputText id="endereco" required="true" />
+
+                    <p:outputLabel value="Telefone" for="telefone" />
+                    <p:inputMask mask="(99) 99999-9999" 
+                                 id="telefone"
+                                 required="true"
+                                 />
+                    <h:outputLabel value="CPF :" for="cpf"/>
+                    <p:inputMask mask="999 - 999 - 999 - 99" 
+                                 id="cpf"
+                                 required="true"
+                                 />
+
+                    <p:outputLabel value="RG" for="rg" />
+                    <p:inputMask mask="999.999.999-9" id="rg" 
+                                 required="true"
+                                 />
+                    <h:outputLabel value="Cidade :" for="cidade" />
+                    <h:inputText id="cidade" required="true" />
+                    <p:outputLabel value="Categoria" for="cat" />
+                    <p:inputText id="cat"  maxlength="25"/>
+
+                    <p:outputLabel value="E-mail" for="email" />
+                    <p:inputText id="email" 
+                                 required="true"
+                                 />
+
+                    <p:commandButton value="Salvar" 
+                                     id="salvar-button" 
+                                     process="aluno-dialog"
+                                     update="painel-dialog"
+                                     />
+                </p:panelGrid>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:photoCam widgetVar="pc" listener="#{photoCamView.oncapture(captureEvent)}" update="photo"   />
+                    <p:commandButton type="button" value="Capturar" onclick="PF('pc').capture()"/>
+                    <p:outputPanel id="photo">
+                        <p:graphicImage name="demo/images/photocam/#{photoCamView.filename}.jpeg" rendered="#{not empty photoCamView.filename}"/>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dialog>
+
+
+
+            <p:dataTable value="#{alunosBean.listaDeAlunos}" var="aluno" 
+                         emptyMessage="Nenhum Aluno localizado!!!"
+
+                         paginator="true" rows="10" paginatorPosition="bottom"> 
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{aluno.nome}" />
+
+
+                </p:column>
+                <p:column headerText="RG">
+                    <h:outputText value="#{aluno.RG}" />
+
+
+                </p:column>
+
+                <p:column headerText="CPF">
+                    <h:outputText value="#{aluno.CPF}" />
+
+
+                </p:column>
+                <p:column headerText="Telefone">
+                    <h:outputText value="#{aluno.telefone}" />
+
+
+                </p:column>
+                <p:column headerText="Email">
+                    <h:outputText value="#{aluno.email}" />
+
+
+                </p:column>
+                <p:column headerText="Endereço">
+                    <h:outputText value="#{aluno.endereco}" />
+
+
+                </p:column>
+
+
+
+
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+

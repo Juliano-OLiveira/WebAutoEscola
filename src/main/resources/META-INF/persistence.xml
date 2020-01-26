@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" 
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence 
+	http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <persistence-unit name="autoescola" transaction-type="RESOURCE_LOCAL">
+        <properties>
+            <!-- CONEXAO JDBC -->
+            <property name="javax.persistence.jdbc.driver" 
+                          value="org.postgresql.Driver" />
+            <!-- "com.mysql.jdbc.Driver" -->
+            <property name="javax.persistence.jdbc.url" 
+                          value="jdbc:postgresql://localhost:5432/autoescola" />
+            
+            <!-- "jdbc:mysql://localhost/frameworks" -->
+            <property name="javax.persistence.jdbc.user" 
+                          value="postgres" />
+            
+            <property name="javax.persistence.jdbc.password" 
+                          value="3011" />
+                
+            <!--                 ESPECIFICAÇÃO JPA Esquema do Banco de Dados -->
+            <!--  -->                  
+            <property name="javax.persistence.schema-generation.database.action" 
+                                     value="drop-and-create" />  <!-- Criação, ação no banco   -->  
+                                       
+            <property name="javax.persistence.schema-generation.create-source" 
+                          value="metadata" /> <!-- o Medatadata é Gerado apartir das Anotaçoes nas Classes -->    
+                          
+            <property name="javax.persistence.sql-load-script-source" 
+                          value="META-INF/sql/popular-banco.sql" />
+                
+            <!-- PROPRIEDADES DO HIBERNATE -->
+            <property name="hibernate.show_sql" value="true" /> <!-- apresentar o sql na hora que ele gerar  -->    
+            <property name="hibernate.format_sql" value="true" /> <!-- formatar o sql para poder endenter  -->    
+            <property name="hibernate.dialect" 
+                          value="org.hibernate.dialect.PostgreSQLDialect" />  <!-- qual o dialeto do postgres lingaguem  -->    
+            <!-- org.hibernate.dialect.MySQL5InnoDBDialect -->
+        </properties>
+    </persistence-unit>
+</persistence>
